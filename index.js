@@ -5,18 +5,11 @@ const ctx = canvas.getContext("2d")
 
 const CANVAS_WIDTH = canvas.width = 400
 const CANVAS_HEIGHT = canvas.height = 600
+const COLS = 5
+const ROWS = 10
 
-const board = [
-    [0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0]
-]
-
-let tileWSize = CANVAS_WIDTH / board[0].length
-let tileHSize = CANVAS_HEIGHT / board.length
+let tileWSize = CANVAS_WIDTH / COLS
+let tileHSize = CANVAS_HEIGHT / ROWS
 
 class Peca {
     constructor(x, y) {
@@ -29,7 +22,7 @@ class Peca {
     }
 
     update() {
-        if(this.y > 4 ) return
+        if (this.y > 4) return
         this.y += 1
 
     }
@@ -46,16 +39,22 @@ class Board {
         }
 
     }
+    reset() {
+      return  Array.from({ length: ROWS }).fill(Array.from({ length: COLS }).fill(0))
+
+    }
 }
 
 const tabuleiro = new Board()
+const board = tabuleiro.reset()
+
 const peca = new Peca(0, 0)
 let x = 0
 let frames = 0
 let frameRate = 10
 
 function animate() {
-    window.requestAnimationFrame(animate)
+    // window.requestAnimationFrame(animate)
     //limpa a tela
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
 
